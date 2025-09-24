@@ -1,8 +1,8 @@
 import h5py
-from .issue import Issue, Severity, Category
-from .model import Model
+from issue import Issue, Severity, Category
+from model import Model
 import json
-from .settings import malicious_op_list, malicious_op_args, malicious_files, safe_ips, args_info
+from settings import malicious_op_list, malicious_op_args, malicious_files, safe_ips, args_info
 from google.protobuf import json_format
 from tensorflow.core.protobuf import saved_model_pb2
 from tensorflow.python.keras.protobuf import saved_metadata_pb2 as metadata_pb2

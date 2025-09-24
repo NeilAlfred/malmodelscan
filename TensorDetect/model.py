@@ -47,7 +47,10 @@ class Model:
         if self.model_type == ModelType.TF_H5:
             return self.file_path
         elif self.model_type == ModelType.TF_SM:
-            return os.path.join(self.file_path, "saved_model.pb")
+            if self.file_path.find("saved_model.pb") != -1:
+                return self.file_path
+            else:
+                return os.path.join(self.file_path, "saved_model.pb")
         
         
             
