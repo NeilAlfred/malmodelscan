@@ -7,7 +7,7 @@ pattern = r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)' \
               r'(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?' \
               r'(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
               
-def main(args):
+def cli(args):
     if args.model:
         path = args.model
         if not os.path.exists(path):
@@ -45,4 +45,4 @@ if __name__ == "__main__":
         sys.exit(1)
     
 
-    main(args)
+    cli(args)

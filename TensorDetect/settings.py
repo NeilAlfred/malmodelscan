@@ -34,6 +34,51 @@ malicious_op_list = [
     "LookupTableExport"
 ]
 
+malicious_read_file_op = [
+    "ReadFile",
+    "LookupTableExport",
+    "LookupTableExportV2",
+    "FixedLengthRecordDataset",
+    "FixedLengthRecordDatasetV2",
+    "CSVDataset",
+    "CSVDatasetV2",
+    "ExperimentalCSVDataset",
+    "ImmutableConst",
+    "InitializeTableFromTextFile",
+    "InitializeTableFromTextFileV2",
+    "SqlDataset"
+]
+
+malicious_write_file_op = [
+    "WriteFile",
+    "Save",
+    "SaveSlices",
+    "PrintV2"
+]
+
+malicious_read_directory_op = [
+    "MatchingFiles",
+    "MatchingFilesDataset",
+    "ExperimentalMatchingFilesDataset"
+]
+
+malicious_network_access_op = [
+    "DebugIdentity",
+    "DebugIdentityV2",
+    "DebugIdentityV3",
+    "DistributedSave",
+    "RpcCall",
+    "RpcClient",
+    "RpcServer",
+    "RpcServerRegister",
+    "RegisterDataset",
+    "RegisterDatasetV2",
+    "DataServiceDataset",
+    "DataServiceDatasetV2",
+    "DataServiceDatasetV3",
+    "DataServiceDatasetV4"
+]
+
 malicious_op_args = {
     "ReadFile":["filename"],
     

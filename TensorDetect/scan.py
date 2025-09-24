@@ -1,8 +1,8 @@
 import h5py
-from issue import Issue, Severity, Category
+from issue import Issue, Severity, Category, Ability
 from model import Model
 import json
-from settings import malicious_op_list, malicious_op_args, malicious_files, safe_ips, args_info
+from settings import malicious_op_list, malicious_op_args, malicious_files, safe_ips, args_info, malicious_write_file_op, malicious_read_file_op, malicious_network_access_op, malicious_read_directory_op
 from google.protobuf import json_format
 from tensorflow.core.protobuf import saved_model_pb2
 from tensorflow.python.keras.protobuf import saved_metadata_pb2 as metadata_pb2
@@ -10,6 +10,19 @@ import os
 import base64
 import fnmatch
 import re
+
+
+def get_op_ability(op):
+    if op in malicious_read_directory_op:
+        return Ability.READ_DIR
+    elif op in malicious_read_file_op:
+        return Ability.READ_FILE
+    elif op in malicious_network_access_op:
+        return Ability.NETWORK
+    elif op in malicious_write_file_op:
+        return Ability.WRITE
+    else:
+        return Ability.NONE
 
 class BaseScan:
     def __init__(self, model: Model):
@@ -49,7 +62,7 @@ class H5Scan(BaseScan):
                         layer_class_name = layer['class_name']
                         if layer_class_name == 'Lambda':
                             # lambda_layers.append(layer)
-                            self.issues.append(Issue(Severity.HIGH, Category.LAMBDA_LAYER, f"Lambda layer detected in h5 model, \nlayer: {layer}\n"))
+                            self.issues.append(Issue(Severity.HIGH, Category.LAMBDA_LAYER, Ability.EXEC, f"Lambda layer detected in h5 model, \nlayer: {layer}\n"))
         except Exception as e:
             print(f"Error scanning h5 model: {e}")
             
@@ -180,13 +193,14 @@ class SavedModelScan(BaseScan):
                                         op_tmp = op["op"]
                                         if arg_name in self.args_info["file_args"]and self.is_malicious_file(arg_value):
                                             issued=1
-                                            self.issues.append(Issue(Severity.HIGH, Category.TENSOR_ABUSE, f"Tensorabuse op detected with malicious behavior in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
+
+                                            self.issues.append(Issue(Severity.HIGH, Category.TENSOR_ABUSE, get_op_ability(op_tmp), f"Tensorabuse op detected with malicious behavior in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
                                         elif arg_name in self.args_info["ip_args"] and (not self.is_safe_ip(arg_value)):
                                             issued=1
-                                            self.issues.append(Issue(Severity.HIGH, Category.TENSOR_ABUSE, f"Tensorabuse op detected with malicious behavior in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
+                                            self.issues.append(Issue(Severity.HIGH, Category.TENSOR_ABUSE, get_op_ability(op_tmp), f"Tensorabuse op detected with malicious behavior in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
                                         else:
                                             issued=1
-                                            self.issues.append(Issue(Severity.MID, Category.TENSOR_ABUSE, f"Tensorabuse op detected in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
+                                            self.issues.append(Issue(Severity.MID, Category.TENSOR_ABUSE, get_op_ability(op_tmp), f"Tensorabuse op detected in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
                                 
                     if "attr" in op["info"]:
                         opinfo_attr = op["info"]["attr"]
@@ -201,13 +215,13 @@ class SavedModelScan(BaseScan):
                                     arg_value=base64.b64decode(base64_arg_value).decode('utf-8')
                                 if not self.is_safe_ip(arg_value):
                                     issued=1
-                                    self.issues.append(Issue(Severity.HIGH, Category.TENSOR_ABUSE, f"Tensorabuse op detected with malicious behavior in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
+                                    self.issues.append(Issue(Severity.HIGH, Category.TENSOR_ABUSE, get_op_ability(op_tmp), f"Tensorabuse op detected with malicious behavior in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
                                 else:
                                     issued=1
-                                    self.issues.append(Issue(Severity.MID, Category.TENSOR_ABUSE, f"Tensorabuse op detected in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
+                                    self.issues.append(Issue(Severity.MID, Category.TENSOR_ABUSE, get_op_ability(op_tmp), f"Tensorabuse op detected in saved model, \nop: {op};\n{malicious_op_args[op_tmp]}: {arg_value}\n"))                       
 
                     if not issued:
-                        self.issues.append(Issue(Severity.MID, Category.TENSOR_ABUSE, f"Tensorabuse op detected in saved model, \nop: {op};\n"))                       
+                        self.issues.append(Issue(Severity.MID, Category.TENSOR_ABUSE, get_op_ability(op_tmp), f"Tensorabuse op detected in saved model, \nop: {op};\n"))                       
 
         except Exception as e:
             print(f"Error scanning saved model: {e}")
@@ -228,7 +242,7 @@ class SavedModelScan(BaseScan):
                 if node.identifier == "_tf_keras_layer":
                     layer = json.loads(node.metadata)
                     if layer["class_name"] == "Lambda":
-                        self.issues.append(Issue(Severity.HIGH, Category.LAMBDA_LAYER, f"Lambda layer detected in h5 model, \nlayer: {layer}\n"))                       
+                        self.issues.append(Issue(Severity.HIGH, Category.LAMBDA_LAYER, Ability.EXEC, f"Lambda layer detected in h5 model, \nlayer: {layer}\n"))                       
         except Exception as e:
             print(f"Error scanning saved model: {e}")
             
