@@ -2,6 +2,7 @@ import h5py
 from issue import Issue, Severity, Category, Ability
 from model import Model
 import json
+from rich import print
 from settings import malicious_op_list, malicious_op_args, malicious_files, safe_ips, args_info, malicious_write_file_op, malicious_read_file_op, malicious_network_access_op, malicious_read_directory_op
 from google.protobuf import json_format
 from tensorflow.core.protobuf import saved_model_pb2
@@ -252,5 +253,16 @@ class SavedModelScan(BaseScan):
         self.lambda_scan()
         
     def print_issues(self):
+        print("\n[green] Analyzing ", self.model.file_path, " using TensorDetect...")
+        print("\n[blue]--- Summary ---")
+        total_issue_count = len(self.issues)
+        if total_issue_count > 0:
+            print(f"\n[red]Total Issues: {total_issue_count}\n")
+        else:
+            print("\n[green] No issues found by TensorDetect! 🎉")
+        
+        counter = 0
         for issue in self.issues:
+            counter += 1
+            print(f"No.{counter}:\n")
             print(issue)
