@@ -16,8 +16,30 @@ class Model:
         """
         self.file_path = path
         
+        
+
         if path.endswith(".zip"):
             extract_path = tempfile.mkdtemp()  # Create a temporary directory
+            try:
+                with zipfile.ZipFile(path, 'r') as zip_ref:
+                    # 第一次嘗試：不使用密碼解壓縮
+                    print("try to unzip without password...")
+                    zip_ref.extractall(extract_path)
+                    print(f"succeed to unzip to dir {extract_path}")
+                path = extract_path
+                    
+            except RuntimeError as e:
+                # 捕獲到執行時錯誤，檢查是否為密碼錯誤
+                if "password" in str(e).lower():
+                    print("failed to unzip a zip that needs password...")
+                    self.model_type = ModelType.NOT_TF
+                    return
+                else:
+                    print("unknown failure when unzip target file...")
+                    self.model_type = ModelType.NOT_TF
+                    return
+            
+            
             with zipfile.ZipFile(path, 'r') as zip_ref:
                 zip_ref.extractall(extract_path)  # Extract the zip file
             path = extract_path  # Set path to the extracted folder

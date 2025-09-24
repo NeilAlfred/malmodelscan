@@ -142,7 +142,9 @@ DEFAULT_SETTINGS = {
     },
     "reporting": {
         "module": "modelscan.reports.ConsoleReport",
-        "settings": {},
+        "settings": {
+            "show_skipped": True
+        },
     },  # JSON reporting can be configured by changing "module" to "modelscan.reports.JSONReport" and adding an optional "output_file" field. For custom reporting modules, change "module" to the module name and add the applicable settings fields
 }
 
