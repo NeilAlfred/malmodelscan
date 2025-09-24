@@ -28,7 +28,7 @@ class Model:
         elif path.endswith("saved_model.pb"):
             self.model_type = ModelType.TF_SM
         else:
-            print("Invalid model type!")
+            print("Invalid model type for TensorDetect, use ModelScan only!")
             return
         self.model_file = self.get_model_file_from_path()
         self.keras_metadata_file = "{}/keras_metadata.pb".format(os.path.dirname(self.model_file))
