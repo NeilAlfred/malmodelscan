@@ -2,7 +2,7 @@ import argparse
 import re
 import os
 import sys
-import model, scan
+import TDmodel, TDscan
 pattern = r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)' \
               r'(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?' \
               r'(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
@@ -14,11 +14,11 @@ def cli(args):
             print("Invalid path!")
             return
 
-        mod = model.Model(path)
-        if mod.model_type == model.ModelType.TF_H5:
-            sc = scan.H5Scan(mod)
-        elif mod.model_type == model.ModelType.TF_SM:
-            sc = scan.SavedModelScan(mod)
+        mod = TDmodel.Model(path)
+        if mod.model_type == TDmodel.ModelType.TF_H5:
+            sc = TDscan.H5Scan(mod)
+        elif mod.model_type == TDmodel.ModelType.TF_SM:
+            sc = TDscan.SavedModelScan(mod)
         sc.scan()
         sc.print_issues()
             

@@ -5,6 +5,7 @@ import tempfile
 class ModelType(Enum):
     TF_H5 = "Tensorflow h5 model"
     TF_SM = "Tensorflow saved model"
+    NOT_TF = "Not a Tensorflow format"
     
 class Model:
     def __init__(self, path):
@@ -28,6 +29,7 @@ class Model:
         elif path.endswith("saved_model.pb"):
             self.model_type = ModelType.TF_SM
         else:
+            self.model_type = ModelType.NOT_TF
             print("Invalid model type for TensorDetect, use ModelScan only!")
             return
         self.model_file = self.get_model_file_from_path()

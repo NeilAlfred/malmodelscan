@@ -1,9 +1,9 @@
 import h5py
-from issue import Issue, Severity, Category, Ability
-from model import Model
+from TensorDetect.TDissue import Issue, Severity, Category, Ability
+from TensorDetect.TDmodel import Model
 import json
 from rich import print
-from settings import malicious_op_list, malicious_op_args, malicious_files, safe_ips, args_info, malicious_write_file_op, malicious_read_file_op, malicious_network_access_op, malicious_read_directory_op
+from TensorDetect.TDsettings import malicious_op_list, malicious_op_args, malicious_files, safe_ips, args_info, malicious_write_file_op, malicious_read_file_op, malicious_network_access_op, malicious_read_directory_op
 from google.protobuf import json_format
 from tensorflow.core.protobuf import saved_model_pb2
 from tensorflow.python.keras.protobuf import saved_metadata_pb2 as metadata_pb2
@@ -253,7 +253,7 @@ class SavedModelScan(BaseScan):
         self.lambda_scan()
         
     def print_issues(self):
-        print("\n[green] Analyzing ", self.model.file_path, " using TensorDetect...")
+        print("\n[green] Analyzing ", self.model.file_path, " using ..")
         print("\n[blue]--- Summary ---")
         total_issue_count = len(self.issues)
         if total_issue_count > 0:
