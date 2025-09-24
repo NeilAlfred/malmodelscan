@@ -1,0 +1,3 @@
+[submodule "modelscan"]
+	path = modelscan
+	url = https://github.com/protectai/modelscan.git
