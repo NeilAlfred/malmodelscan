@@ -1,4 +1,3 @@
 tomlkit
 numpy
-tensorflow
 h5py

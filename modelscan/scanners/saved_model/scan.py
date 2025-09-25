@@ -1,3 +1,9 @@
+# Copyright Protect AI Inc. and its affiliates.
+# Apache License, Version 2.0 (the "License");
+#
+# Modified by NeilAlfred in 2025.
+# no need to import whole tensorflow package
+
 # scan pb files for both tensorflow and keras
 
 import json
@@ -6,7 +12,7 @@ import logging
 from typing import List, Set, Optional, Dict, Any
 
 try:
-    import tensorflow
+    # import tensorflow
     from tensorflow.core.protobuf.saved_model_pb2 import SavedModel
     from tensorflow.python.keras.protobuf.saved_metadata_pb2 import SavedMetadata
 
@@ -68,7 +74,7 @@ class SavedModelScan(ScanBase):
     ) -> ScanResults:
         issues: List[Issue] = []
         all_operators = (
-            tensorflow.raw_ops.__dict__.keys() if tensorflow_installed else []
+            []
         )
         all_safe_operators = [
             operator for operator in list(all_operators) if operator[0] != "_"
