@@ -1,3 +1,4 @@
 tomlkit
 numpy
 h5py
+rich

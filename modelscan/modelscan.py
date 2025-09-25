@@ -23,6 +23,7 @@ from modelscan.tools.utils import _is_zipfile
 from modelscan.model import Model
 from modelscan.middlewares.middleware import MiddlewarePipeline, MiddlewareImportError
 
+
 logger = logging.getLogger("modelscan")
 
 
@@ -325,8 +326,8 @@ class ModelScan:
                 name=modulename, package=classname
             )
 
-            report_class = getattr(imported_module, classname)
-            scan_report = report_class.generate(scan=self, settings=report_settings)
+            from modelscan.reports import ConsoleReport
+            scan_report = ConsoleReport.generate(scan=self, settings=report_settings)
 
         except Exception as e:
             logger.error("Error generating report using %s: %s", reporting_module, e)
