@@ -137,3 +137,5 @@ pytorch-model-scan-results.json
 
 # Code Coverage
 cov.xml
+
+frontend/node_modules/
