@@ -1,13 +1,17 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import tailwindcss from '@tailwindcss/vite'
+import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [
     vue(),
-    tailwindcss(),
   ],
-  base: '/malmodel_scan/',
+  base: '/',  // 本地开发使用根路径
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src')
+    }
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets'

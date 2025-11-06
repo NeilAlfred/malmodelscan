@@ -49,14 +49,18 @@
         <!-- Summary -->
         <div class="bg-white rounded-xl shadow-lg p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">扫描结果概览</h3>
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
             <div class="text-center p-4 bg-blue-50 rounded-lg">
               <div class="text-2xl font-bold text-blue-600">{{ scanResults.totalIssues }}</div>
               <div class="text-sm text-gray-600">总问题数</div>
             </div>
-            <div class="text-center p-4 bg-red-50 rounded-lg">
-              <div class="text-2xl font-bold text-red-600">{{ scanResults.criticalIssues }}</div>
-              <div class="text-sm text-gray-600">严重问题</div>
+            <div class="text-center p-4 bg-red-600 rounded-lg">
+              <div class="text-2xl font-bold text-white">{{ scanResults.criticalIssues }}</div>
+              <div class="text-sm text-white">严重问题</div>
+            </div>
+            <div class="text-center p-4 bg-orange-500 rounded-lg">
+              <div class="text-2xl font-bold text-white">{{ scanResults.highIssues }}</div>
+              <div class="text-sm text-white">高风险问题</div>
             </div>
             <div class="text-center p-4 bg-yellow-50 rounded-lg">
               <div class="text-2xl font-bold text-yellow-600">{{ scanResults.mediumIssues }}</div>
@@ -106,11 +110,12 @@
 import { ref } from 'vue'
 import FileUpload from '@/components/FileUpload.vue'
 import ScanResults from '@/components/ScanResults.vue'
-import { ScannerService, type ScanResult } from '@/services/scanner'
+import { ScannerService } from '@/services/api'
 
 interface ScanResults {
   totalIssues: number
   criticalIssues: number
+  highIssues: number
   mediumIssues: number
   lowIssues: number
   issues: Array<{
@@ -126,11 +131,38 @@ const selectedFile = ref<File | null>(null)
 const isScanning = ref(false)
 const scanningMessage = ref('')
 const scanResults = ref<ScanResults | null>(null)
+const lastFileHash = ref<string>('')
+
+// 计算文件hash值的函数
+const calculateFileHash = async (file: File): Promise<string> => {
+  const buffer = await file.arrayBuffer()
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+}
 
 const handleFileSelected = async (file: File) => {
+  console.log('handleFileSelected called with file:', file.name)
+
+  // 计算当前文件的hash值
+  const currentFileHash = await calculateFileHash(file)
+  console.log('File hash calculated:', currentFileHash.substring(0, 8) + '...')
+  console.log('Last file hash:', lastFileHash.value ? lastFileHash.value.substring(0, 8) + '...' : 'none')
+
+  // 只有当文件确实不同时才清空之前的结果
+  const isDifferentFile = !selectedFile.value || lastFileHash.value !== currentFileHash
+  console.log('Is different file:', isDifferentFile)
+
   selectedFile.value = file
+  lastFileHash.value = currentFileHash
   isScanning.value = true
-  scanResults.value = null
+
+  if (isDifferentFile) {
+    console.log('Clearing previous scan results')
+    scanResults.value = null
+  } else {
+    console.log('Keeping existing scan results')
+  }
 
   try {
     const scannerService = ScannerService.getInstance()
@@ -145,23 +177,49 @@ const handleFileSelected = async (file: File) => {
       }
     )
 
+    console.log('Setting new scan results:', {
+      totalIssues: result.totalIssues,
+      criticalIssues: result.criticalIssues,
+      highIssues: result.highIssues,
+      mediumIssues: result.mediumIssues,
+      lowIssues: result.lowIssues,
+      issuesCount: result.issues.length,
+      firstIssue: result.issues[0]
+    })
+
     scanResults.value = {
       totalIssues: result.totalIssues,
       criticalIssues: result.criticalIssues,
+      highIssues: result.highIssues,
       mediumIssues: result.mediumIssues,
       lowIssues: result.lowIssues,
-      issues: result.issues.map(issue => ({
+      issues: result.issues.map((issue: any) => ({
         severity: issue.severity,
         title: issue.title,
         description: issue.description,
-        location: issue.location
+        location: issue.location,
+        op: issue.op,
+        ability: issue.ability
       })),
       scanner: result.scanner
     }
+
+    console.log('Scan results set successfully')
   } catch (error) {
     console.error('扫描失败:', error)
-    // 显示错误信息
-    alert('扫描失败，请稍后重试')
+    // 显示更友好的错误信息
+    scanningMessage.value = '扫描失败：' + (error instanceof Error ? error.message : '未知错误')
+
+    // 如果是网络错误，显示提示
+    if (error instanceof TypeError || (error instanceof Error && error.message.includes('Failed to fetch'))) {
+      scanningMessage.value = '后端服务不可用，请检查服务状态'
+    }
+
+    // 延迟重置扫描状态
+    setTimeout(() => {
+      isScanning.value = false
+      scanningMessage.value = ''
+    }, 3000)
   } finally {
     isScanning.value = false
   }

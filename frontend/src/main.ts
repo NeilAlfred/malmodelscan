@@ -6,6 +6,7 @@ import App from './App.vue'
 
 const routes = [
   { path: '/', component: () => import('./views/Home.vue') },
+  { path: '/history', component: () => import('./views/History.vue') },
 ]
 
 const router = createRouter({

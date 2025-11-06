@@ -2,6 +2,7 @@
   <div class="space-y-4">
     <!-- Issues List -->
     <div v-if="results.issues.length > 0">
+      <div class="text-xs text-gray-500 mb-2">DEBUG: Found {{ results.issues.length }} issues</div>
       <div class="space-y-3">
         <div
           v-for="(issue, index) in results.issues"
@@ -27,12 +28,33 @@
                 {{ issue.description }}
               </p>
 
-              <div v-if="issue.location" class="flex items-center space-x-2 text-xs text-gray-500">
+              <!-- 算子和能力信息 -->
+              <div class="grid grid-cols-2 gap-2 mb-2">
+                <div class="flex items-center space-x-2 text-xs text-gray-600">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span class="font-medium">算子:</span>
+                  <span class="font-mono bg-gray-100 px-1 rounded" v-if="issue.op">{{ issue.op }}</span>
+                  <span class="font-mono bg-gray-100 px-1 rounded text-gray-400" v-else>N/A</span>
+                  </div>
+                <div class="flex items-center space-x-2 text-xs text-gray-600">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <span class="font-medium">能力:</span>
+                  <span class="text-red-600 font-medium" v-if="issue.ability">{{ issue.ability }}</span>
+                  <span class="text-red-600 font-medium text-gray-400" v-else>N/A</span>
+                  </div>
+              </div>
+
+              <div v-if="issue.location && issue.location !== 'Unknown'" class="flex items-center space-x-2 text-xs text-gray-500">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>位置: {{ issue.location }}</span>
+                <span>文件: {{ issue.location }}</span>
               </div>
             </div>
 
@@ -108,18 +130,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 interface Issue {
   severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW'
   title: string
   description: string
   location?: string
+  category?: string
+  cwe?: string
+  recommendation?: string
+  op?: string
+  ability?: string
 }
 
 interface ScanResultsData {
   totalIssues: number
   criticalIssues: number
+  highIssues: number
   mediumIssues: number
   lowIssues: number
   issues: Issue[]
@@ -130,7 +158,8 @@ interface Props {
   results: ScanResultsData
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
 
 const expandedIssues = ref<Set<number>>(new Set())
 

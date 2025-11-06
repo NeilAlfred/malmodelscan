@@ -7,3 +7,4 @@ tomlkit
 numpy
 h5py
 rich
+#tensorflow>=2.8.0  # 使用项目自带的瘦身版 tensorflow/ 文件夹

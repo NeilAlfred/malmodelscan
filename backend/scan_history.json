@@ -1,0 +1,1010 @@
+[
+  {
+    "scan_id": "fa2ead29-6472-4b25-a975-8a957eb1e490",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T22:55:37.064382",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      }
+    ]
+  },
+  {
+    "scan_id": "f15137cf-f51c-4d45-bda6-e4f91fa5d457",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:00:30.282471",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      }
+    ]
+  },
+  {
+    "scan_id": "8b9a2107-c916-43fd-be6f-32037b9340ac",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:04:56.620196",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      }
+    ]
+  },
+  {
+    "scan_id": "a56e6c1b-0bc0-422f-922d-b7035b7b110a",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:23:30.613511",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      }
+    ]
+  },
+  {
+    "scan_id": "40335f77-dcd9-4cb0-bfe2-8f8cc7799bfd",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:25:05.094391",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      }
+    ]
+  },
+  {
+    "scan_id": "f5f47d60-9ea2-4b51-a290-d8aaad7dc6e6",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:29:38.867513",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown"
+      }
+    ]
+  },
+  {
+    "scan_id": "e5677032-9a1f-4986-9052-64ae3cd20ba8",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:40:45.415602",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "Unknown",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "1be8f857-7dec-4870-b257-cc735fa76316",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:46:12.676028",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "c81c1736-6a71-434d-9f8e-908bea50e527",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:49:18.729154",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "f1eba6fc-5fdd-42e6-a4d6-84fde9b80304",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:50:01.081306",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "f3823652-8bcf-4405-91b4-04b182175206",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 1,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:50:14.787982",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const:output:0'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      }
+    ]
+  },
+  {
+    "scan_id": "99ca3765-5d8e-4fd4-92cc-55ddf5f0227d",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:51:58.141062",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "98106adc-b7b7-49d2-8006-bc14f914b769",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-06T23:54:11.458167",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "83b4a1d9-3aa5-4486-8777-cc6fd2298507",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:00:33.982671",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "6da5e21b-3acc-4ee1-a966-4a3d97fe7f61",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:01:58.950473",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "2c6787f3-65c9-40d0-bd4c-4a5b33dbfab6",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:03:07.084949",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "72734099-c849-4a64-aa6b-f9356bfacf38",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:11:25.986846",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "c9031d78-6b50-4119-b593-0454c67acdd5",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:15:55.819309",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "da681130-5895-4f1e-af69-09f949d17ce7",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:17:16.967017",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "9df23548-7f0e-42c2-a81a-1c0927f5c5b1",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:20:45.770009",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "4b6b63ed-852b-4a0d-aa0a-cab10c34fd9c",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 5,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:22:46.848995",
+    "issues": [
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'info': {'name': 'FixedLengthRecordDatasetV2', 'op': 'FixedLengthRecordDatasetV2', 'input': ['FixedLengthRecordDatasetV2/filenames:output:0', 'FixedLengthRecordDatasetV2/header_bytes:output:0', 'FixedLengthRecordDatasetV2/record_bytes:output:0', 'FixedLengthRecordDatasetV2/footer_bytes:output:0', 'FixedLengthRecordDatasetV2/buffer_size:output:0', 'FixedLengthRecordDatasetV2/compression_type:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{}]}}}, 'experimentalType': {'typeId': 'TFT_PRODUCT', 'args': [{'typeId': 'TFT_DATASET', 'args': [{'typeId': 'TFT_TENSOR', 'args': [{'typeId': 'TFT_STRING'}]}]}]}}};\n['filenames']: /etc/passwd\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary file read",
+        "op": "FixedLengthRecordDatasetV2"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DistributedSave', 'op': 'DistributedSave', 'info': {'name': 'DistributedSave', 'op': 'DistributedSave', 'input': ['TensorSliceDataset:handle:0', 'DistributedSave/directory:output:0', 'DistributedSave/address:output:0', '^TensorSliceDataset'], 'attr': {'_output_shapes': {'list': {}}}}};\n['address']: 10.214.148.18:1238\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DistributedSave"
+      },
+      {
+        "severity": "high",
+        "description": "Tensorabuse op detected with malicious behavior in saved model, \nop: {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'info': {'name': 'DebugIdentityV3', 'op': 'DebugIdentityV3', 'input': ['Const_2:output:0', '^DistributedSave'], 'attr': {'T': {'type': 'DT_STRING'}, '_output_shapes': {'list': {'shape': [{}]}}, 'debug_urls': {'list': {'s': ['Z3JwYzovLzEwLjIxNC4xNDguMTg6MTIzNg==']}}, 'tensor_name': {'s': 'dGVzdF90ZW5zb3I='}}}};\n['debug_urls']: grpc://10.214.148.18:1236\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Network access(leading to IP / data leakage)",
+        "op": "DebugIdentityV3"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'info': {'name': 'MatchingFiles', 'op': 'MatchingFiles', 'input': ['MatchingFiles/pattern:output:0'], 'attr': {'_output_shapes': {'list': {'shape': [{'dim': [{'size': '-1'}]}]}}}}};\n['pattern']: /home/*/.ssh\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "MatchingFiles"
+      },
+      {
+        "severity": "mid",
+        "description": "Tensorabuse op detected in saved model, \nop: {'name': 'Save', 'op': 'Save', 'info': {'name': 'Save', 'op': 'Save', 'input': ['add:z:0', 'Save/tensor_names:output:0', 'Save/data_0:output:0', 'Save/data_1:output:0', '^DebugIdentityV3'], 'attr': {'T': {'list': {'type': ['DT_INT32', 'DT_INT32']}}, '_output_shapes': {'list': {}}}}};\n",
+        "operator": "Tensor abuse",
+        "location": "saved_model.pb",
+        "ability": "Arbitary directory read",
+        "op": "Save"
+      }
+    ]
+  },
+  {
+    "scan_id": "3af83f8f-ac20-42be-85fa-dceda8b58ddb",
+    "filename": "saved_model.pb",
+    "model_type": "TensorFlow (SavedModel)",
+    "scanner_used": "TensorDetect",
+    "total_issues": 0,
+    "issues_by_severity": {},
+    "scan_time": "2025-11-07T00:27:28.073879",
+    "issues": []
+  },
+  {
+    "scan_id": "9a08a929-74a6-4fa3-ab13-15a85550fc90",
+    "filename": "unsafe_zip_pytorch.pt",
+    "model_type": "Non-TensorFlow",
+    "scanner_used": "ModelScan",
+    "total_issues": 1,
+    "issues_by_severity": {
+      "CRITICAL": 1
+    },
+    "scan_time": "2025-11-07T00:28:09.553024",
+    "issues": [
+      {
+        "severity": "IssueSeverity.CRITICAL",
+        "description": "IssueSeverity.CRITICAL<OperatorIssueDetails(module=posix, operator=system, severity=CRITICAL, source=/home/neil/code/malmodel_scan/backend/uploads/9a08a929-74a6-4fa3-ab13-15a85550fc90_unsafe_zip_pytorch.pt:unsafe_zip_pytorch/data.pkl)>",
+        "operator": "unknown",
+        "location": "unknown"
+      }
+    ]
+  }
+]
