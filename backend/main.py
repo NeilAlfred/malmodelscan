@@ -29,7 +29,7 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000", "http://127.0.0.1:5173"],
+    allow_origins=["http://127.0.0.1:3000", "http://127.0.0.1:5173", "http://localhost:3000", "http://localhost:5173", "http://localhost:5174"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -255,7 +255,7 @@ async def upload_model(background_tasks: BackgroundTasks, file: UploadFile = Fil
         raise HTTPException(status_code=400, detail="No file uploaded")
 
     # Check file extension
-    allowed_extensions = ['.h5', '.hdf5', '.pb', '.pkl', '.pickle', '.pt', '.pth', '.onnx', '.tflite']
+    allowed_extensions = ['.h5', '.hdf5', '.pb', '.pkl', '.pickle', '.pt', '.pth', '.onnx', '.tflite', '.zip']
     file_ext = Path(file.filename).suffix.lower()
     if file_ext not in allowed_extensions:
         raise HTTPException(
@@ -273,6 +273,27 @@ async def upload_model(background_tasks: BackgroundTasks, file: UploadFile = Fil
 
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
+
+        # Handle ZIP files - extract if it's a ZIP archive
+        if file_ext == '.zip':
+            import zipfile
+            extract_dir = upload_dir / f"{scan_id}_extracted"
+            extract_dir.mkdir(exist_ok=True)
+
+            with zipfile.ZipFile(file_path, 'r') as zip_ref:
+                zip_ref.extractall(extract_dir)
+
+            # Look for saved_model.pb in extracted files
+            extracted_pb_files = list(extract_dir.rglob("saved_model.pb"))
+            if extracted_pb_files:
+                file_path = extracted_pb_files[0]  # Use the first saved_model.pb found
+                print(f"Extracted ZIP, found saved_model.pb at: {file_path}")
+            else:
+                # Look for .h5 files
+                extracted_h5_files = list(extract_dir.rglob("*.h5"))
+                if extracted_h5_files:
+                    file_path = extracted_h5_files[0]
+                    print(f"Extracted ZIP, found .h5 file at: {file_path}")
 
         # Initialize scan status
         SCAN_STATUS[scan_id] = {"status": "queued", "progress": 0, "message": "File uploaded, scan queued..."}

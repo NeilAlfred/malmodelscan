@@ -75,8 +75,8 @@ start_frontend() {
     fi
 
     # Start frontend in background
-    echo "Starting Vue dev server on http://localhost:5173"
-    npm run dev &
+    echo "Starting Vue dev server on http://127.0.0.1:5173"
+    npm run dev -- --host 127.0.0.1 --port 5173 &
     FRONTEND_PID=$!
     cd ..
 
@@ -86,7 +86,7 @@ start_frontend() {
     # Check if frontend started successfully
     if check_port 5173; then
         echo "✅ Frontend started successfully (PID: $FRONTEND_PID)"
-        echo "🌐 Frontend URL: http://localhost:5173"
+        echo "🌐 Frontend URL: http://127.0.0.1:5173"
     else
         echo "❌ Frontend failed to start"
         kill $BACKEND_PID 2>/dev/null
@@ -124,7 +124,7 @@ start_frontend
 echo ""
 echo "🎉 MalModelScan is now running!"
 echo "================================"
-echo "🌐 Frontend: http://localhost:5173"
+echo "🌐 Frontend: http://127.0.0.1:5173"
 echo "🔧 Backend API: http://127.0.0.1:5180"
 echo "📚 API Docs: http://127.0.0.1:5180/docs"
 echo ""

@@ -159,6 +159,7 @@ class SavedModelScan(BaseScan):
             for op in oplist:
                 if op["op"] in self.settings:
                     issued = 0
+                    op_tmp = op["op"]  # 在这里定义op_tmp，确保在所有分支中都可用
                     if "input" in op["info"]:
                         opinfo_input = op["info"]["input"] # all args infomation of an op
                         for arg in opinfo_input:

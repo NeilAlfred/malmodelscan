@@ -139,3 +139,4 @@ pytorch-model-scan-results.json
 cov.xml
 
 frontend/node_modules/
+backend/uploads/

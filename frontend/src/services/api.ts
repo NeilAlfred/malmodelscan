@@ -56,7 +56,7 @@ export class ApiService {
   private baseUrl: string
   private static instance: ApiService
 
-  constructor(baseUrl: string = 'http://127.0.0.1:5180') {
+  constructor(baseUrl: string = 'http://localhost:5180') {
     this.baseUrl = baseUrl
   }
 
@@ -166,13 +166,31 @@ export class ApiService {
   }
 
   async healthCheck(): Promise<{ status: string; timestamp: string }> {
-    const response = await this.fetchWithTimeout('/health')
+    // 健康检查使用较短的超时时间，并支持重试
+    const maxRetries = 3
+    let lastError: Error | null = null
 
-    if (!response.ok) {
-      throw new Error(`健康检查失败: ${response.statusText}`)
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const response = await this.fetchWithTimeout('/health', {}, 5000) // 5秒超时
+
+        if (!response.ok) {
+          throw new Error(`健康检查失败: ${response.statusText}`)
+        }
+
+        return response.json()
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error('Unknown error')
+        console.log(`Health check attempt ${attempt} failed:`, lastError.message)
+
+        if (attempt < maxRetries) {
+          // 等待重试，时间逐渐增加
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt))
+        }
+      }
     }
 
-    return response.json()
+    throw lastError || new Error('健康检查失败')
   }
 
   // 轮询扫描状态直到完成
@@ -307,6 +325,16 @@ export class ScannerService {
     }
   }
 
+  async clearScanHistory(): Promise<{ message: string }> {
+    try {
+      await this.api.healthCheck()
+      return await this.api.clearScanHistory()
+    } catch (error) {
+      console.error('清除扫描历史失败:', error)
+      throw error
+    }
+  }
+
   private convertApiResultToFrontendFormat(apiResult: ApiScanResult): any {
     console.log('DEBUG: API result issues:', apiResult.issues)
 
@@ -362,7 +390,15 @@ export class ScannerService {
     }
   }
 
-  private normalizeSeverity(severity: string): 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' {
+  private normalizeSeverity(severity: string | number): 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' {
+    // 处理数字格式的severity
+    if (typeof severity === 'number') {
+      if (severity >= 4) return 'CRITICAL'
+      if (severity >= 3) return 'HIGH'
+      if (severity >= 2) return 'MEDIUM'
+      return 'LOW'
+    }
+
     const upperSeverity = severity.toUpperCase()
     if (['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'].includes(upperSeverity)) {
       return upperSeverity as 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW'

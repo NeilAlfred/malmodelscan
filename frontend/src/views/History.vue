@@ -57,7 +57,7 @@
       <!-- Scan History -->
       <div v-else class="space-y-6">
         <!-- Summary Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
           <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
             <div class="text-2xl font-bold text-gray-900">{{ scanHistory.length }}</div>
             <div class="text-sm text-gray-600">总扫描次数</div>
@@ -65,6 +65,10 @@
           <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
             <div class="text-2xl font-bold text-red-600">{{ totalCriticalIssues }}</div>
             <div class="text-sm text-gray-600">严重问题</div>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <div class="text-2xl font-bold text-orange-600">{{ totalHighIssues }}</div>
+            <div class="text-sm text-gray-600">高风险问题</div>
           </div>
           <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
             <div class="text-2xl font-bold text-yellow-600">{{ totalMediumIssues }}</div>
@@ -99,10 +103,10 @@
                       {{ scan.scanner }}
                     </span>
                     <span
-                      :class="getStatusBadgeClass(scan.totalIssues)"
+                      :class="getRiskLevelBadgeClass(scan)"
                       class="px-2 py-1 text-xs font-medium rounded-full"
                     >
-                      {{ getStatusText(scan.totalIssues) }}
+                      {{ getRiskLevelText(scan) }}
                     </span>
                   </div>
 
@@ -204,7 +208,7 @@
 
           <div class="p-6">
             <!-- Summary -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
               <div class="text-center p-4 bg-blue-50 rounded-lg">
                 <div class="text-2xl font-bold text-blue-600">{{ selectedScan.totalIssues }}</div>
                 <div class="text-sm text-gray-600">总问题数</div>
@@ -212,6 +216,10 @@
               <div class="text-center p-4 bg-red-50 rounded-lg">
                 <div class="text-2xl font-bold text-red-600">{{ selectedScan.criticalIssues }}</div>
                 <div class="text-sm text-gray-600">严重问题</div>
+              </div>
+              <div class="text-center p-4 bg-orange-50 rounded-lg">
+                <div class="text-2xl font-bold text-orange-600">{{ selectedScan.highIssues || 0 }}</div>
+                <div class="text-sm text-gray-600">高风险问题</div>
               </div>
               <div class="text-center p-4 bg-yellow-50 rounded-lg">
                 <div class="text-2xl font-bold text-yellow-600">{{ selectedScan.mediumIssues }}</div>
@@ -299,6 +307,10 @@ const totalCriticalIssues = computed(() =>
   scanHistory.value.reduce((sum, scan) => sum + scan.criticalIssues, 0)
 )
 
+const totalHighIssues = computed(() =>
+  scanHistory.value.reduce((sum, scan) => sum + (scan.highIssues || 0), 0)
+)
+
 const totalMediumIssues = computed(() =>
   scanHistory.value.reduce((sum, scan) => sum + scan.mediumIssues, 0)
 )
@@ -327,10 +339,13 @@ const clearHistory = async () => {
   }
 
   try {
-    // 这里可以调用清除历史的 API
-    scanHistory.value = []
+    const scannerService = ScannerService.getInstance()
+    await scannerService.clearScanHistory()
+    // 清除成功后，重新加载历史记录
+    await refreshHistory()
   } catch (error) {
     console.error('清除历史记录失败:', error)
+    alert('清除历史记录失败，请稍后重试')
   }
 }
 
@@ -362,6 +377,38 @@ const getStatusText = (issues: number): string => {
   if (issues === 0) return '安全'
   if (issues > 5) return '高风险'
   if (issues > 2) return '中风险'
+  return '低风险'
+}
+
+const getRiskLevelBadgeClass = (scan: ScanRecord): string => {
+  if (scan.totalIssues === 0) return 'bg-green-100 text-green-800'
+
+  // 检查是否有严重级别问题
+  if (scan.criticalIssues > 0) return 'bg-red-100 text-red-800'
+
+  // 检查是否有高级别问题
+  if (scan.highIssues && scan.highIssues > 0) return 'bg-orange-100 text-orange-800'
+
+  // 检查是否有中等级别问题
+  if (scan.mediumIssues > 0) return 'bg-yellow-100 text-yellow-800'
+
+  // 只有轻微问题
+  return 'bg-blue-100 text-blue-800'
+}
+
+const getRiskLevelText = (scan: ScanRecord): string => {
+  if (scan.totalIssues === 0) return '安全'
+
+  // 检查是否有严重级别问题
+  if (scan.criticalIssues > 0) return '严重风险'
+
+  // 检查是否有高级别问题
+  if (scan.highIssues && scan.highIssues > 0) return '高风险'
+
+  // 检查是否有中等级别问题
+  if (scan.mediumIssues > 0) return '中风险'
+
+  // 只有轻微问题
   return '低风险'
 }
 

@@ -12,7 +12,7 @@
         ref="fileInput"
         type="file"
         class="hidden"
-        accept=".h5,.pb,.pkl,.pt,.pth,.bin,.ckpt"
+        accept=".h5,.pb,.pkl,.pt,.pth,.bin,.ckpt,.zip"
         @change="handleFileInput"
       />
 
@@ -28,7 +28,7 @@
             {{ isLoading ? '处理中...' : '点击上传或拖拽文件到此处' }}
           </p>
           <p class="text-sm text-gray-500 mt-1">
-            支持 .h5, .pb, .pkl, .pt, .pth, .bin, .ckpt 格式
+            支持 .h5, .pb, .pkl, .pt, .pth, .bin, .ckpt, .zip 格式
           </p>
         </div>
 

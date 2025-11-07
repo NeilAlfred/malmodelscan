@@ -88,8 +88,8 @@
             <h4 class="font-medium text-gray-900 mb-2">TensorFlow 模型</h4>
             <ul class="text-sm text-gray-600 space-y-1">
               <li>• .h5 - HDF5 格式</li>
-              <li>• SavedModel 目录格式</li>
               <li>• .pb - Protocol Buffer 格式</li>
+              <li>• .zip - SavedModel 完整目录打包（推荐）</li>
             </ul>
           </div>
           <div>
@@ -132,6 +132,7 @@ const isScanning = ref(false)
 const scanningMessage = ref('')
 const scanResults = ref<ScanResults | null>(null)
 const lastFileHash = ref<string>('')
+const isProcessing = ref(false)
 
 // 计算文件hash值的函数
 const calculateFileHash = async (file: File): Promise<string> => {
@@ -142,29 +143,36 @@ const calculateFileHash = async (file: File): Promise<string> => {
 }
 
 const handleFileSelected = async (file: File) => {
-  console.log('handleFileSelected called with file:', file.name)
-
-  // 计算当前文件的hash值
-  const currentFileHash = await calculateFileHash(file)
-  console.log('File hash calculated:', currentFileHash.substring(0, 8) + '...')
-  console.log('Last file hash:', lastFileHash.value ? lastFileHash.value.substring(0, 8) + '...' : 'none')
-
-  // 只有当文件确实不同时才清空之前的结果
-  const isDifferentFile = !selectedFile.value || lastFileHash.value !== currentFileHash
-  console.log('Is different file:', isDifferentFile)
-
-  selectedFile.value = file
-  lastFileHash.value = currentFileHash
-  isScanning.value = true
-
-  if (isDifferentFile) {
-    console.log('Clearing previous scan results')
-    scanResults.value = null
-  } else {
-    console.log('Keeping existing scan results')
+  // 防抖处理：如果正在处理中，忽略重复调用
+  if (isProcessing.value) {
+    console.log('Already processing file, ignoring duplicate call')
+    return
   }
 
+  console.log('handleFileSelected called with file:', file.name)
+  isProcessing.value = true
+  isScanning.value = true
+
   try {
+    // 计算当前文件的hash值
+    const currentFileHash = await calculateFileHash(file)
+    console.log('File hash calculated:', currentFileHash.substring(0, 8) + '...')
+    console.log('Last file hash:', lastFileHash.value ? lastFileHash.value.substring(0, 8) + '...' : 'none')
+
+    // 只有当文件确实不同时才清空之前的结果
+    const isDifferentFile = !selectedFile.value || lastFileHash.value !== currentFileHash
+    console.log('Is different file:', isDifferentFile)
+
+    selectedFile.value = file
+    lastFileHash.value = currentFileHash
+
+    if (isDifferentFile) {
+      console.log('Clearing previous scan results')
+      scanResults.value = null
+    } else {
+      console.log('Keeping existing scan results')
+    }
+
     const scannerService = ScannerService.getInstance()
     const result = await scannerService.scanModel(
       {
@@ -210,9 +218,11 @@ const handleFileSelected = async (file: File) => {
     // 显示更友好的错误信息
     scanningMessage.value = '扫描失败：' + (error instanceof Error ? error.message : '未知错误')
 
-    // 如果是网络错误，显示提示
-    if (error instanceof TypeError || (error instanceof Error && error.message.includes('Failed to fetch'))) {
-      scanningMessage.value = '后端服务不可用，请检查服务状态'
+    // 如果是网络错误或超时，显示提示
+    if (error instanceof TypeError ||
+        (error instanceof Error && (error.message.includes('Failed to fetch') ||
+                                  error.message.includes('请求超时')))) {
+      scanningMessage.value = '连接后端服务失败，请稍后重试'
     }
 
     // 延迟重置扫描状态
@@ -222,6 +232,7 @@ const handleFileSelected = async (file: File) => {
     }, 3000)
   } finally {
     isScanning.value = false
+    isProcessing.value = false
   }
 }
 

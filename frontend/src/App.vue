@@ -28,9 +28,15 @@
               扫描历史
             </router-link>
             <div class="flex items-center space-x-2">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                <span class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5"></span>
-                在线
+              <span :class="[
+                'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
+                isOnline ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              ]">
+                <span :class="[
+                  'w-1.5 h-1.5 rounded-full mr-1.5',
+                  isOnline ? 'bg-green-400' : 'bg-red-400'
+                ]"></span>
+                {{ isOnline ? '在线' : '离线' }}
               </span>
             </div>
           </nav>
@@ -56,5 +62,43 @@
 </template>
 
 <script setup lang="ts">
-// App组件逻辑
+import { ref, onMounted, onUnmounted } from 'vue'
+import { ApiService } from '@/services/api'
+
+const isOnline = ref(true)
+let healthCheckInterval: NodeJS.Timeout | null = null
+
+const checkHealthStatus = async () => {
+  try {
+    const apiService = ApiService.getInstance()
+    await apiService.healthCheck()
+    isOnline.value = true
+  } catch (error) {
+    console.warn('Health check failed:', error)
+    isOnline.value = false
+  }
+}
+
+const startHealthChecking = () => {
+  // 立即检查一次
+  checkHealthStatus()
+
+  // 每30秒检查一次
+  healthCheckInterval = setInterval(checkHealthStatus, 30000)
+}
+
+const stopHealthChecking = () => {
+  if (healthCheckInterval) {
+    clearInterval(healthCheckInterval)
+    healthCheckInterval = null
+  }
+}
+
+onMounted(() => {
+  startHealthChecking()
+})
+
+onUnmounted(() => {
+  stopHealthChecking()
+})
 </script>
