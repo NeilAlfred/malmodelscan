@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MalModelScan - AI模型安全检查工具</title>
+    <script>
+      // Single Page Apps for GitHub Pages
+      // https://github.com/rafrex/spa-github-pages
+      // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+      // ----------------------------------------------------------------------
+      // This script will redirect all 404s to index.html, which is what
+      // we want for a single page application (SPA).
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+  </head>
+  <body>
+    <script>
+      // Redirect to index.html with the original path
+      (function() {
+        var path = window.location.pathname;
+        var segments = path.split('/');
+        // Remove the first empty segment and 'malmodelscan' if present
+        if (segments[0] === '') segments.shift();
+        if (segments[0] === 'malmodelscan') segments.shift();
+
+        var newPath = '/malmodelscan/#/' + segments.join('/');
+        window.location.replace(newPath);
+      })();
+    </script>
+  </body>
+</html>
