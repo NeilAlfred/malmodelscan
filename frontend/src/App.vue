@@ -63,16 +63,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { ApiService } from '@/services/api'
+import { checkApiConnection } from './services/apiService'
 
 const isOnline = ref(true)
-let healthCheckInterval: NodeJS.Timeout | null = null
+let healthCheckInterval: number | null = null
 
 const checkHealthStatus = async () => {
   try {
-    const apiService = ApiService.getInstance()
-    await apiService.healthCheck()
-    isOnline.value = true
+    const result = await checkApiConnection()
+    isOnline.value = result.isConnected
   } catch (error) {
     console.warn('Health check failed:', error)
     isOnline.value = false
@@ -84,7 +83,7 @@ const startHealthChecking = () => {
   checkHealthStatus()
 
   // 每30秒检查一次
-  healthCheckInterval = setInterval(checkHealthStatus, 30000)
+  healthCheckInterval = window.setInterval(checkHealthStatus, 30000)
 }
 
 const stopHealthChecking = () => {

@@ -271,7 +271,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { ScannerService } from '@/services/api'
+import { apiService, type ScanHistory, type ScanResult } from '../services/apiService'
 
 interface ScanRecord {
   scanId?: string

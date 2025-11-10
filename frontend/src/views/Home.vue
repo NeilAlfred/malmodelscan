@@ -108,9 +108,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import FileUpload from '@/components/FileUpload.vue'
-import ScanResults from '@/components/ScanResults.vue'
-import { ScannerService } from '@/services/api'
+import FileUpload from '../components/FileUpload.vue'
+import ScanResults from '../components/ScanResults.vue'
+import { apiService, type ScanResult, type ScanResponse, type ScanStatus } from '../services/apiService'
 
 interface ScanResults {
   totalIssues: number
