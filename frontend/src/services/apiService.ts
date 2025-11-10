@@ -153,6 +153,133 @@ export class ApiService {
   }
 
   /**
+   * 扫描模型文件（完整流程）
+   * @param file 要扫描的文件
+   * @param onProgress 进度回调函数
+   * @returns 扫描结果
+   */
+  async scanModel(
+    file: File,
+    onProgress?: (message: string) => void
+  ): Promise<any> {
+    try {
+      // 步骤1：上传文件
+      onProgress?.('正在上传模型文件...')
+      const uploadResponse = await this.uploadModel(file)
+
+      // 步骤2：等待扫描完成
+      onProgress?.('开始安全扫描...')
+      const result = await this.waitForScanComplete(
+        uploadResponse.scan_id,
+        onProgress
+      )
+
+      return result
+    } catch (error) {
+      console.error('扫描失败:', error)
+      if (error instanceof NetworkError) {
+        throw new Error('网络连接失败，请检查后端服务是否正常运行')
+      }
+      if (error instanceof ApiError) {
+        throw new Error(`扫描失败: ${error.message}`)
+      }
+      throw error
+    }
+  }
+
+  /**
+   * 等待扫描完成
+   * @param scanId 扫描ID
+   * @param onProgress 进度回调函数
+   * @returns 扫描结果
+   */
+  private async waitForScanComplete(
+    scanId: string,
+    onProgress?: (message: string) => void
+  ): Promise<any> {
+    const maxAttempts = 60 // 最多等待60次（约5分钟）
+    const pollInterval = 5000 // 每5秒轮询一次
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const status = await this.getScanStatus(scanId)
+
+        switch (status.status) {
+          case 'queued':
+            onProgress?.('扫描任务已排队，等待处理...')
+            break
+          case 'scanning':
+            if (status.progress) {
+              onProgress?.(`扫描中... ${status.progress}%`)
+            } else {
+              onProgress?.(status.message || '正在扫描模型文件...')
+            }
+            break
+          case 'completed':
+            onProgress?.('扫描完成，正在生成报告...')
+            // 获取最终结果
+            const result = await this.getScanResult(scanId)
+            return this.formatScanResult(result)
+          case 'failed':
+            throw new Error(status.message || '扫描失败')
+          default:
+            onProgress?.('处理中...')
+        }
+
+        // 如果还在进行中，等待后继续轮询
+        if (status.status !== 'completed' && status.status !== 'failed') {
+          await new Promise(resolve => setTimeout(resolve, pollInterval))
+        }
+      } catch (error) {
+        if (error instanceof ApiError && error.status === 404) {
+          // 扫描ID不存在，可能还在处理中
+          onProgress?.('正在初始化扫描任务...')
+          await new Promise(resolve => setTimeout(resolve, pollInterval))
+          continue
+        }
+        throw error
+      }
+    }
+
+    throw new Error('扫描超时，请稍后重试')
+  }
+
+  /**
+   * 格式化扫描结果以匹配前端期望的格式
+   */
+  private formatScanResult(result: ScanResult): any {
+    // 统计各级别问题数量
+    const severityCounts = result.issues.reduce((counts, issue) => {
+      const severity = issue.severity.toUpperCase()
+      counts[severity] = (counts[severity] || 0) + 1
+      return counts
+    }, {} as Record<string, number>)
+
+    return {
+      totalIssues: result.total_issues,
+      criticalIssues: severityCounts['CRITICAL'] || 0,
+      highIssues: severityCounts['HIGH'] || 0,
+      mediumIssues: severityCounts['MEDIUM'] || 0,
+      lowIssues: severityCounts['LOW'] || 0,
+      issues: result.issues.map(issue => ({
+        severity: issue.severity.toUpperCase(),
+        title: issue.operator || issue.op || 'Unknown Operator',
+        description: issue.description,
+        location: issue.location,
+        op: issue.op,
+        ability: issue.ability
+      })),
+      scanner: result.scanner_used === 'TensorDetect' ? 'TensorDetect' : 'ModelScan',
+      scanTime: new Date(result.scan_time).getTime(),
+      modelInfo: {
+        framework: result.model_type?.includes('TensorFlow') ? 'TensorFlow' : 'Other',
+        format: result.model_type,
+        size: 'Unknown' // 后端没有提供文件大小信息
+      }
+    }
+  }
+
+  /**
    * 获取活跃扫描
    */
   async getActiveScans(): Promise<{ active_scans: ScanStatus[]; count: number }> {

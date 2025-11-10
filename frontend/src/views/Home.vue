@@ -173,13 +173,8 @@ const handleFileSelected = async (file: File) => {
       console.log('Keeping existing scan results')
     }
 
-    const scannerService = ScannerService.getInstance()
-    const result = await scannerService.scanModel(
-      {
-        file,
-        fileName: file.name,
-        fileSize: file.size
-      },
+    const result = await apiService.scanModel(
+      file,
       (message) => {
         scanningMessage.value = message
       }
