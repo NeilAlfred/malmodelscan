@@ -328,7 +328,7 @@ const refreshHistory = async () => {
     scanHistory.value = history.scans.map((scan: any) => ({
       scanId: scan.scan_id,
       fileName: scan.filename,
-      scanner: scan.scanner_used === 'TensorDetect' ? 'TensorDetect' : 'ModelScan',
+      scanner: (scan.scanner_used === 'TensorDetect' ? 'TensorDetect' : 'ModelScan') as 'TensorDetect' | 'ModelScan',
       totalIssues: scan.total_issues,
       criticalIssues: scan.issues_by_severity?.CRITICAL || 0,
       highIssues: scan.issues_by_severity?.HIGH || 0,
