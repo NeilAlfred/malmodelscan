@@ -330,21 +330,37 @@ const refreshHistory = async () => {
       fileName: scan.filename,
       scanner: scan.scanner_used === 'TensorDetect' ? 'TensorDetect' : 'ModelScan',
       totalIssues: scan.total_issues,
-      criticalIssues: scan.issues_by_severity?.critical || 0,
-      highIssues: scan.issues_by_severity?.high || 0,
-      mediumIssues: scan.issues_by_severity?.medium || 0,
-      lowIssues: scan.issues_by_severity?.low || 0,
+      criticalIssues: scan.issues_by_severity?.CRITICAL || 0,
+      highIssues: scan.issues_by_severity?.HIGH || 0,
+      mediumIssues: scan.issues_by_severity?.MEDIUM || 0,
+      lowIssues: scan.issues_by_severity?.LOW || 0,
       scanTime: new Date(scan.scan_time).getTime(),
       modelInfo: {
         framework: scan.model_type?.includes('TensorFlow') ? 'TensorFlow' : 'Other',
         format: scan.model_type
       },
-      issues: scan.issues.map((issue: any) => ({
-        severity: issue.severity.toUpperCase(),
-        title: issue.operator || issue.op || 'Unknown',
-        description: issue.description,
-        location: issue.location
-      }))
+      issues: scan.issues.map((issue: any) => {
+        // ModelScan severity数字到字符串的映射
+        const severityMap: Record<number, string> = {
+          1: 'LOW',
+          2: 'MEDIUM',
+          3: 'HIGH',
+          4: 'CRITICAL'
+        }
+
+        let severityStr = String(issue.severity || 'unknown').toUpperCase()
+        // 如果是数字，使用映射表转换
+        if (!isNaN(Number(issue.severity))) {
+          severityStr = severityMap[Number(issue.severity)] || 'UNKNOWN'
+        }
+
+        return {
+          severity: severityStr,
+          title: issue.operator || issue.op || 'Unknown',
+          description: issue.description,
+          location: issue.location
+        }
+      })
     })).sort((a, b) => b.scanTime - a.scanTime) // 按时间倒序
   } catch (error) {
     console.error('获取扫描历史失败:', error)

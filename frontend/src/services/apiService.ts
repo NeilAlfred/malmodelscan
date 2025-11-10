@@ -73,7 +73,7 @@ export class ApiService {
         ...options,
         signal: controller.signal,
         headers: {
-          'Content-Type': 'application/json',
+          ...(options.body instanceof FormData ? {} : {'Content-Type': 'application/json'}),
           ...options.headers,
         },
       })
@@ -81,14 +81,24 @@ export class ApiService {
       clearTimeout(timeoutId)
 
       if (!response.ok) {
-        throw new ApiError(response.status, response.statusText, url)
+        let errorMessage = response.statusText
+        try {
+          const responseText = await response.text()
+          console.log('Raw error response:', responseText)
+          const errorData = JSON.parse(responseText)
+          errorMessage = errorData.detail || errorData.message || response.statusText
+        } catch (parseError) {
+          console.log('Failed to parse error response:', parseError)
+          // 如果无法解析JSON，使用默认错误消息
+        }
+        throw new ApiError(response.status, errorMessage, url)
       }
 
       return await response.json()
     } catch (error) {
       clearTimeout(timeoutId)
 
-      if (error.name === 'AbortError') {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw new ApiError(408, 'Request timeout', url)
       }
 
@@ -177,11 +187,21 @@ export class ApiService {
       return result
     } catch (error) {
       console.error('扫描失败:', error)
+      if (error instanceof ApiError) {
+        console.error('API Error Details:', {
+          status: error.status,
+          message: error.message,
+          url: error.url
+        })
+      }
       if (error instanceof NetworkError) {
         throw new Error('网络连接失败，请检查后端服务是否正常运行')
       }
       if (error instanceof ApiError) {
-        throw new Error(`扫描失败: ${error.message}`)
+        const errorMessage = typeof error.message === 'string'
+          ? error.message
+          : JSON.stringify(error.message)
+        throw new Error(`扫描失败: ${errorMessage}`)
       }
       throw error
     }
@@ -248,12 +268,42 @@ export class ApiService {
    * 格式化扫描结果以匹配前端期望的格式
    */
   private formatScanResult(result: ScanResult): any {
+    // ModelScan severity数字到字符串的映射
+    const severityMap: Record<number, string> = {
+      1: 'LOW',
+      2: 'MEDIUM',
+      3: 'HIGH',
+      4: 'CRITICAL'
+    }
+
+    // Helper function to convert severity
+    const getSeverityString = (severity: any): string => {
+      if (!isNaN(Number(severity))) {
+        return severityMap[Number(severity)] || 'UNKNOWN'
+      }
+      return String(severity || 'unknown').toUpperCase()
+    }
+
     // 统计各级别问题数量
     const severityCounts = result.issues.reduce((counts, issue) => {
-      const severity = issue.severity.toUpperCase()
-      counts[severity] = (counts[severity] || 0) + 1
+      const severityStr = getSeverityString(issue.severity)
+      counts[severityStr] = (counts[severityStr] || 0) + 1
       return counts
     }, {} as Record<string, number>)
+
+    // 格式化issues
+    const formattedIssues = result.issues.map(issue => {
+      const severityStr = getSeverityString(issue.severity)
+
+      return {
+        severity: severityStr,
+        title: issue.operator || issue.op || 'Unknown Operator',
+        description: issue.description,
+        location: issue.location,
+        op: issue.op,
+        ability: issue.ability
+      }
+    })
 
     return {
       totalIssues: result.total_issues,
@@ -261,14 +311,7 @@ export class ApiService {
       highIssues: severityCounts['HIGH'] || 0,
       mediumIssues: severityCounts['MEDIUM'] || 0,
       lowIssues: severityCounts['LOW'] || 0,
-      issues: result.issues.map(issue => ({
-        severity: issue.severity.toUpperCase(),
-        title: issue.operator || issue.op || 'Unknown Operator',
-        description: issue.description,
-        location: issue.location,
-        op: issue.op,
-        ability: issue.ability
-      })),
+      issues: formattedIssues,
       scanner: result.scanner_used === 'TensorDetect' ? 'TensorDetect' : 'ModelScan',
       scanTime: new Date(result.scan_time).getTime(),
       modelInfo: {
