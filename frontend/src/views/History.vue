@@ -323,9 +323,29 @@ const totalLowIssues = computed(() =>
 const refreshHistory = async () => {
   isLoading.value = true
   try {
-    const scannerService = ScannerService.getInstance()
-    const history = await scannerService.getHistory()
-    scanHistory.value = history.sort((a, b) => b.scanTime - a.scanTime) // 按时间倒序
+    const history = await apiService.getScanHistory()
+    // 转换数据格式以匹配界面需求
+    scanHistory.value = history.scans.map((scan: any) => ({
+      scanId: scan.scan_id,
+      fileName: scan.filename,
+      scanner: scan.scanner_used === 'TensorDetect' ? 'TensorDetect' : 'ModelScan',
+      totalIssues: scan.total_issues,
+      criticalIssues: scan.issues_by_severity?.critical || 0,
+      highIssues: scan.issues_by_severity?.high || 0,
+      mediumIssues: scan.issues_by_severity?.medium || 0,
+      lowIssues: scan.issues_by_severity?.low || 0,
+      scanTime: new Date(scan.scan_time).getTime(),
+      modelInfo: {
+        framework: scan.model_type?.includes('TensorFlow') ? 'TensorFlow' : 'Other',
+        format: scan.model_type
+      },
+      issues: scan.issues.map((issue: any) => ({
+        severity: issue.severity.toUpperCase(),
+        title: issue.operator || issue.op || 'Unknown',
+        description: issue.description,
+        location: issue.location
+      }))
+    })).sort((a, b) => b.scanTime - a.scanTime) // 按时间倒序
   } catch (error) {
     console.error('获取扫描历史失败:', error)
   } finally {
@@ -339,8 +359,7 @@ const clearHistory = async () => {
   }
 
   try {
-    const scannerService = ScannerService.getInstance()
-    await scannerService.clearScanHistory()
+    await apiService.clearScanHistory()
     // 清除成功后，重新加载历史记录
     await refreshHistory()
   } catch (error) {

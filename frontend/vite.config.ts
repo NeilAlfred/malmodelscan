@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
       vue(),
     ],
     // GitHub Pages 需要子路径部署
-    base: isProduction ? '/malmodel-scan/' : '/',
+    base: isProduction ? '/malmodelscan/' : '/',
     resolve: {
       alias: {
         '@': './src'
