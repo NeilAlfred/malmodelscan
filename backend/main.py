@@ -189,6 +189,13 @@ async def scan_model_file(scan_id: str, file_path: str, filename: str):
 
             scan_result["total_issues"] = len(sc.issues)
 
+            # Group by severity for TensorFlow issues
+            issues_by_severity = {}
+            for issue in sc.issues:
+                severity_str = issue.severity.value.upper() if hasattr(issue.severity, 'value') else str(issue.severity).upper()
+                issues_by_severity[severity_str] = issues_by_severity.get(severity_str, 0) + 1
+            scan_result["issues_by_severity"] = issues_by_severity
+
         else:
             # Not TensorFlow model, use ModelScan
             print("Not a TensorFlow format, using ModelScan...")
