@@ -105,4 +105,4 @@ const apiService = new ApiScannerService('https://your-api-domain.com/api')
 
 ## 许可证
 
-本项目遵循 MIT 许可证。
+本项目遵循 Apache-2.0 许可证。

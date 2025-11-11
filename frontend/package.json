@@ -2,6 +2,7 @@
   "name": "malmodel-scan-frontend",
   "version": "1.0.0",
   "description": "AI模型安全检查工具前端",
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
